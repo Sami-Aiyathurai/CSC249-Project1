@@ -11,6 +11,7 @@ serverSocket = socket(AF_INET, SOCK_STREAM)
   #       Bind the socket to server address and server port
   #       Tell the socket to listen to at most 1 connection at a time
 
+#yayyyyy
 PORT = 5050
 SERVER = socket.gethostbyname(socket.gethostbyname())
 ADDRESS = (SERVER,PORT)
