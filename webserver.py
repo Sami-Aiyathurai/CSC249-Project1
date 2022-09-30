@@ -11,6 +11,13 @@ serverSocket = socket(AF_INET, SOCK_STREAM)
   #       Bind the socket to server address and server port
   #       Tell the socket to listen to at most 1 connection at a time
 
+PORT = 5050
+SERVER = socket.gethostbyname(socket.gethostbyname())
+ADDRESS = (SERVER,PORT)
+
+serverSocket.bind(ADDRESS)
+serverSocket.listen(0)
+
 # -----------
 # Fill in end
 # -----------
@@ -23,7 +30,7 @@ while True:
     # -------------
     # Fill in start
     # -------------
-    connectionSocket, addr = None # TODO: Set up a new connection from the client
+    connectionSocket, addr = serverSocket.accept() # TODO: Set up a new connection from the client
     # -----------
     # Fill in end
     # -----------
@@ -33,7 +40,7 @@ while True:
         # -------------
         # Fill in start
         # -------------
-        message = None # TODO: Receive the request message from the client
+        message = serverSocket.recv(1024) # TODO: Receive the request message from the client
         # -----------
         # Fill in end
         # -----------
