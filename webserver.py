@@ -11,13 +11,12 @@ serverSocket = socket(AF_INET, SOCK_STREAM)
   #       Bind the socket to server address and server port
   #       Tell the socket to listen to at most 1 connection at a time
 
-#yayyyyy
 PORT = 5050
-SERVER = socket.gethostbyname(socket.gethostbyname())
-ADDRESS = (SERVER,PORT)
+# SERVER = gethostbyname(gethostbyname())
+# ADDRESS = (SERVER,PORT)
 
-serverSocket.bind(ADDRESS)
-serverSocket.listen(0)
+serverSocket.bind(('', PORT))
+serverSocket.listen(1)
 
 # -----------
 # Fill in end
@@ -57,7 +56,7 @@ while True:
         # -------------
         # Fill in start
         # -------------
-        outputdata = None # TODO: Store the entire contents of the requested file in a temporary buffer
+        outputdata = f.read() # TODO: Store the entire contents of the requested file in a temporary buffer
         # -----------
         # Fill in end
         # -----------
@@ -66,6 +65,7 @@ while True:
         # Fill in start
         # -------------
             # TODO: Send one HTTP header line into socket
+        connectionSocket.send("HTTP/1.1 200 OK\r\n\r\n")
         # -----------
         # Fill in end
         # -----------
@@ -83,6 +83,8 @@ while True:
         # -------------
             # TODO: Send response message for file not found
             #       Close client socket
+        connectionSocket.send("HTTP/1.1 404 Not found\r\n\r\n")
+        connectionSocket.close()
         # -----------
         # Fill in end
         # -----------
