@@ -65,7 +65,7 @@ while True:
         # Fill in start
         # -------------
         # TODO: Send one HTTP header line into socket
-        connectionSocket.send('HTTP/1.1 200 OK\r\n\r\n')
+        connectionSocket.send("HTTP/1.1 200 OK\r\n\r\n".encode())
         # -----------
         # Fill in end
         # -----------
@@ -83,7 +83,7 @@ while True:
         # -------------
             # TODO: Send response message for file not found
             #       Close client socket
-        connectionSocket.send('HTTP/1.1 404 Not found\r\n\r\n')
+        connectionSocket.send("HTTP/1.1 404 Not found\r\n\r\n".encode())
         connectionSocket.close()
         # -----------
         # Fill in end
