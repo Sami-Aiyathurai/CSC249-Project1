@@ -1,6 +1,5 @@
 from socket import *
 import sys # In order to terminate the program
-import struct
 
 serverSocket = socket(AF_INET, SOCK_STREAM)
 
@@ -49,7 +48,6 @@ while True:
         # Extract the path of the requested object from the message
 		# The path is the second part of HTTP header, identified by [1]
         filename = message.split()[1]
-        filename = struct.unpack("d", filename)[0]
 
         # Because the extracted path of the HTTP request includes 
 		# a character '\', we read the path from the second character
@@ -66,7 +64,7 @@ while True:
         # -------------
         # Fill in start
         # -------------
-            # TODO: Send one HTTP header line into socket
+        # TODO: Send one HTTP header line into socket
         connectionSocket.send('HTTP/1.1 200 OK\r\n\r\n')
         # -----------
         # Fill in end
