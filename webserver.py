@@ -40,7 +40,7 @@ while True:
         # -------------
         # Fill in start
         # -------------
-        message = serverSocket.recv(1024) # TODO: Receive the request message from the client
+        message = connectionSocket.recv(1024) # TODO: Receive the request message from the client
         # -----------
         # Fill in end
         # -----------
