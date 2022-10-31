@@ -10,14 +10,14 @@ serverSocket = socket(AF_INET, SOCK_STREAM)
   # TODO: Assign a port number
   #       Bind the socket to server address and server port
   #       Tell the socket to listen to at most 1 connection at a time
+#Client needs to be its own object (make a class for client connections?)
 
 PORT = 5050
 # SERVER = gethostbyname(gethostbyname())
 # ADDRESS = (SERVER,PORT)
 
 serverSocket.bind(('', PORT))
-serverSocket.listen(1)
-
+print('Ready to serve...') 
 # -----------
 # Fill in end
 # -----------
@@ -25,8 +25,8 @@ serverSocket.listen(1)
 while True:
     
     # Establish the connection
-    print('Ready to serve...') 
-    
+
+    serverSocket.listen(1)
     # -------------
     # Fill in start
     # -------------
