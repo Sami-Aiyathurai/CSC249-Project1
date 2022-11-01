@@ -9,9 +9,11 @@ filename = sys.argv[3]
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect((server_host, server_port)) # filename ?
 
-request = "GET / HTTP/1.1\r\nHost:%s\r\n\r\n" % filename
+request = "GET /%s HTTP/1.1\r\n\r\n" %(filename)
 
 client.send(request.encode())
+
 response = client.recv(1024)
-print("test")
-print(response.decode())
+while(response):
+    print(response.decode())
+    response = client.recv(1024)

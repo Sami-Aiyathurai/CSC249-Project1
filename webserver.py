@@ -12,21 +12,23 @@ class MyThread(Thread):
     def run(self):
         print("run()")
         message = ""
-        while True:
-            try:
-                message = self.connectionSocket.recv(1024)
-                print(message)
-                filename = message.split()[1]
-                f = open(filename[1:])
-                outputdata = f.read()
-                self.connectionSocket.send("HTTP/1.1 200 OK\r\n\r\n".encode())
-                for i in range(0, len(outputdata)):
-                    self.connectionSocket.send(outputdata[i].encode())
-                self.connectionSocket.send("\r\n".encode())
-                self.connectionSocket.close()
-            except IOError:
-                self.connectionSocket.send("HTTP/1.1 404 Not found\r\n\r\n".encode())
-                self.connectionSocket.close()
+        #while True:
+        try:
+            message = self.connectionSocket.recv(1024).decode()
+            print(message)
+            filename = message.split()[1]
+            print("filename = ")
+            print(filename)
+            f = open(filename[1:])
+            outputdata = f.read()
+            self.connectionSocket.send("HTTP/1.1 200 OK\r\n\r\n".encode())
+            for i in range(0, len(outputdata)):
+                self.connectionSocket.send(outputdata[i].encode())
+            self.connectionSocket.send("\r\n".encode())
+            self.connectionSocket.close()
+        except IOError:
+            self.connectionSocket.send("HTTP/1.1 404 Not found\r\n\r\n".encode())
+            self.connectionSocket.close()
 
 
 
@@ -61,15 +63,15 @@ while True:
     # -------------
     # Fill in start
     # -------------
-    connectionSocket, addr = serverSocket.accept() # TODO: Set up a new connection from the client
+    conSocket, addr = serverSocket.accept() # TODO: Set up a new connection from the client
     print("accepted connection...")
     # -----------
     # Fill in end
     # -----------
 
-    new_thread = MyThread(addr, connectionSocket)
+    new_thread = MyThread(addr, conSocket)
     new_thread.start()
-    new_thread.setDaemon(True)
+    #new_thread.setDaemon(True)
     threads.append(new_thread)
     #try:
         
