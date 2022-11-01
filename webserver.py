@@ -3,7 +3,7 @@ import sys # In order to terminate the program
 from threading import *
 
 class MyThread(Thread):
-    def __init__(address, socket, self):
+    def __init__(self, address, socket):
         Thread.__init__(self)
         self.connectionSocket = socket
         #self.addr = address
@@ -15,6 +15,7 @@ class MyThread(Thread):
         while True:
             try:
                 message = self.connectionSocket.recv(1024)
+                print(message)
                 filename = message.split()[1]
                 f = open(filename[1:])
                 outputdata = f.read()
@@ -49,22 +50,27 @@ print('Ready to serve...')
 # -----------
 # Fill in end
 # -----------
+threads = []
+serverSocket.listen(1)
 
 while True:
     
     # Establish the connection
-
-    serverSocket.listen(1)
+    print("testing webserver.py...")
+    # print(serverSocket)
     # -------------
     # Fill in start
     # -------------
     connectionSocket, addr = serverSocket.accept() # TODO: Set up a new connection from the client
+    print("accepted connection...")
     # -----------
     # Fill in end
     # -----------
 
     new_thread = MyThread(addr, connectionSocket)
     new_thread.start()
+    new_thread.setDaemon(True)
+    threads.append(new_thread)
     #try:
         
         # -------------
