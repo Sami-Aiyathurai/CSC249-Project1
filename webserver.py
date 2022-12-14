@@ -6,20 +6,25 @@ class MyThread(Thread):
     def __init__(self, address, socket):
         Thread.__init__(self)
         self.connectionSocket = socket
-        #self.addr = address
         print("__init__()")
 
     def run(self):
         print("run()")
         message = ""
-        #while True:
         try:
             message = self.connectionSocket.recv(1024).decode()
             print(message)
             filename = message.split()[1]
             print("filename = ")
             print(filename)
+
+            if(filename[0:4] == "/../") :
+                return
+
             f = open(filename[1:])
+            print("f = ")
+            print(f)
+            # f = open("test.txt","w")
             outputdata = f.read()
             self.connectionSocket.send("HTTP/1.1 200 OK\r\n\r\n".encode())
             for i in range(0, len(outputdata)):
@@ -43,7 +48,7 @@ serverSocket = socket(AF_INET, SOCK_STREAM)
   #       Tell the socket to listen to at most 1 connection at a time
 #Client needs to be its own object (make a class for client connections?)
 
-PORT = 5050
+PORT = 5051
 # SERVER = gethostbyname(gethostbyname())
 # ADDRESS = (SERVER,PORT)
 
@@ -59,7 +64,6 @@ while True:
     
     # Establish the connection
     print("testing webserver.py...")
-    # print(serverSocket)
     # -------------
     # Fill in start
     # -------------
